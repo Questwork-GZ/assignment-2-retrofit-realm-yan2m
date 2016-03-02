@@ -39,16 +39,23 @@ public class Asset {
         this.fullpath = fullpath;
     }
 
-    public Asset(long timeStamp, String fullpath) {
-        this.timeStamp = timeStamp;
-        this.fullpath = fullpath;
-    }
+//    public Asset(long timeStamp, String fullpath) {
+//        this.timeStamp = timeStamp;
+//        this.fullpath = fullpath;
+//    }
 
 
     //返回Asset对象
     public static Asset objectTranslate(AssetRepository repository){
+//        if (repository != null){
+//            return new Asset(repository.getTimeStamp(),repository.getFullpath());
+//        }
+//        return null;
         if (repository != null){
-            return new Asset(repository.getTimeStamp(),repository.getFullpath());
+            Asset asset = new Asset();
+            asset.setFullpath(repository.getFullpath());
+            asset.setTimeStamp(repository.getTimeStamp());
+            return asset;
         }
         return null;
     }

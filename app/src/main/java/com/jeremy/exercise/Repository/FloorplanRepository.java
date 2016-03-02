@@ -4,6 +4,8 @@ package com.jeremy.exercise.Repository;
 import com.jeremy.exercise.help.GsonHelper;
 import com.jeremy.exercise.moudle.Asset;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -71,11 +73,16 @@ public class FloorplanRepository extends RealmObject {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FloorplanRepository floorplanRepository = realm.copyToRealmOrUpdate(repository);
+        realm.commitTransaction();
         return floorplanRepository;
     }
 
     //保存至Realm数据库，并返回一个FloorplanRepository对象
     public static FloorplanRepository save(String json){
         return save(GsonHelper.fromJson(json,FloorplanRepository.class));
+    }
+
+    public static List<FloorplanRepository> findAll() {
+        return Realm.getDefaultInstance().where(FloorplanRepository.class).findAll();
     }
 }
